@@ -1,11 +1,14 @@
 import java.util.HashSet;
 import java.util.Set;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Store valid words and generate suggestions for misspelled words.
  */
 public class WordValidation implements SpellingOperations {
-  private Dictionary dictionary;
+  private HashSetDictionary dictionary;
 
   /**
    * Create a validator from a dictionary file.
@@ -13,8 +16,21 @@ public class WordValidation implements SpellingOperations {
    * @param filename the file containing valid words
    */
   public WordValidation(String filename) {
-    // You choose which implementation to use.
-  }
+    File words = new File(filename);
+    try (Scanner myReader = new Scanner(words)) {
+
+            while (myReader.hasNextLine()) {
+
+                String line = myReader.nextLine();
+
+                int spaceIndex = line.indexOf(" "); // ok idk lets sleep and work tmr
+
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        }
+    }
 
   /**
    * Check whether the dictionary contains a word.

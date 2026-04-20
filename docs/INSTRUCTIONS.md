@@ -73,6 +73,7 @@ The `WordValidation` class should implement the `SpellingOperations` interface.
 
 For this phase, you should choose which `Dictionary` implementation to use to store valid words in your spell checker and explain that choice in your `README.md`.
 
+***work here tmr***
 The `WordValidation` class is the heart of the spellchecker. It should:
 
 - read valid words from a dictionary file such as `words.txt`
