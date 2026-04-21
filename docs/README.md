@@ -16,6 +16,8 @@ If anyone was particularly helpful, please give them a shout-out here:
 
 Any references or resources used besides JavaDoc and course materials:
 
+https://stackoverflow.com/questions/12940663/does-adding-a-duplicate-value-to-a-hashset-hashmap-replace-the-previous-value
+
 If you used generative AI, how did you use it? What role did it play in your learning?
 
 ## Assignment Reflection
