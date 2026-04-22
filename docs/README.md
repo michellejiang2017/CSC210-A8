@@ -54,7 +54,8 @@ HashSetDictionary: 16636900 ns
 
 - any other important design choices you made
 
+I decided to use silence mode for spellchecker because I didn't like writing more code lmao and I thought it would be good at modularity for the code. 
 
 - what was most challenging or most interesting about the assignment?
 
-
+I really like file reading and I really liked the validations, even though I found them really challenging. 
