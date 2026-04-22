@@ -56,6 +56,7 @@ public class WordValidation implements SpellingOperations {
    * @return a set of valid suggestions that are one edit away
    */
   public Set<String> nearMisses(String query) {
+    query = query.replaceAll("[^a-zA-Z]", "").toLowerCase();
     HashSet<String> returns = new HashSet<String>(); 
     returns.addAll(deletions(query));
     returns.addAll(insertions(query));
@@ -67,10 +68,10 @@ public class WordValidation implements SpellingOperations {
   }
 
   /**
-   * Generate valid near misses for a query word that are two edits away. Delete one letter from the word.
+   * Generate valid near misses for a query word that are one edit away. Delete one letter from the word.
    *
    * @param query the word to check
-   * @return a set of valid suggestions that are two edits away
+   * @return a set of valid suggestions that are one edit away
    */
   public HashSet<String> deletions(String query) {
     HashSet<String> returns = new HashSet<String>();
@@ -93,7 +94,7 @@ public class WordValidation implements SpellingOperations {
    */
   public HashSet<String> insertions(String query) {
     HashSet<String> returns = new HashSet<String>();
-      for (int i = 0; i < query.length(); i++) {
+      for (int i = 0; i <= query.length(); i++) {
         StringBuilder sb = new StringBuilder(query);
         for (char c = 'a'; c <= 'z'; c++) {
           sb.insert(i, c);
@@ -136,16 +137,14 @@ public class WordValidation implements SpellingOperations {
    */
   public HashSet<String> transpositions(String query) {
     HashSet<String> returns = new HashSet<String>();
-      for (int i = 0; i < query.length(); i++) {
-        StringBuilder sb = new StringBuilder(query);
-        for (char c = 'a'; c <= 'z'; c++) {
-          char temp = sb.charAt(i);
-          sb.setCharAt(i, c);
-          sb.setCharAt((i + 1) % query.length(), temp);
-          String candidate = sb.toString(); 
-          if (this.dictionary.contains(candidate)) {
-            returns.add(candidate);
-          }
+      for (int i = 0; i < query.length() - 1; i++) {
+        char[] chars = query.toCharArray();
+        char temp = chars[i];
+        chars[i] = chars[i + 1];
+        chars[i + 1] = temp;
+        String candidate = new String(chars);
+        if (this.dictionary.contains(candidate)) {
+          returns.add(candidate);
         }
       }
     return returns;
