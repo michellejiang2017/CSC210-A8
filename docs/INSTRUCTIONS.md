@@ -118,7 +118,6 @@ To generate suggestions, consider all valid words that are exactly one edit away
 
 There may be more than one way to generate the same suggestion. Your returned `Set<String>` should still include each suggestion only once.
 
-***for tomorrow***
 ### Testing Suggestions
 
 You will likely find it very helpful to write tests for yourself as you work, even though you are not required to submit a particular student test file for grading.

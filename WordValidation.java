@@ -17,6 +17,7 @@ public class WordValidation implements SpellingOperations {
    */
   public WordValidation(String filename) {
     Scanner file = null;
+    dictionary = new HashSetDictionary();
     try {
       file = new Scanner(new File(filename));
     } catch (FileNotFoundException e) {

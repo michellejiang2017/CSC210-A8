@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Scanner; 
 
 /**
  * Run the spell checker from the command line.
@@ -8,6 +9,7 @@ import java.util.Map;
 public class SpellChecker {
   private static final String DEFAULT_DICTIONARY = "words.txt";
   private WordValidation validator;
+  private HashSet<String> repeats = new HashSet<String>(); 
 
   /**
    * Create a spell checker object.
@@ -35,12 +37,31 @@ public class SpellChecker {
    * @param word the word to check
    */
   public void checkWord(String word) {
-    if (this.validator.containsWord(word)) {
-      System.out.println("'" + word + "' is spelled correctly.");
+    checkWord(word, false);
+  }
+
+  /**
+   * Check one word and print the result.
+   *
+   * @param word the word to check
+   * @param silent whether to suppress output for correctly spelled words
+   */
+  public void checkWord(String word, Boolean silent) {
+    if (silent) {
+      // silence mode
+       if (!this.validator.containsWord(word) && !repeats.contains(word)) {
+        System.out.println("Not found: " + word);
+        System.out.println("  Suggestions: " + checkSpelling(word).get(word));
+        repeats.add(word);
+      }
     } else {
-      System.out.println("Not found: " + word);
-      System.out.println("  Suggestions: " + checkSpelling(word).get(word));
-    }
+      if (this.validator.containsWord(word)) {
+        System.out.println("'" + word + "' is spelled correctly.");
+      } else {
+        System.out.println("Not found: " + word);
+        System.out.println("  Suggestions: " + checkSpelling(word).get(word));
+      }
+  }
   }
 
   /**
@@ -70,11 +91,22 @@ public class SpellChecker {
    */
   public static void main(String[] args) {
 
-    // This code will analyze any words passed as command lines
     SpellChecker checker = new SpellChecker();
 
-    for (String word : args) {
-      checker.checkWord(word);
+    if (args.length > 0) {
+      // This code will analyze any words passed as command lines
+
+      for (String word : args) {
+        checker.checkWord(word);
+      }
+    } else {
+      // file reader mode
+      Scanner scanner = new Scanner(System.in);
+      while (scanner.hasNext()) {
+            String word = scanner.next();
+            checker.checkWord(word, true);
+        }
+      scanner.close(); 
     }
   }
 }
